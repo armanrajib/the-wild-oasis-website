@@ -4,7 +4,8 @@ import { EyeSlashIcon, MapPinIcon, UsersIcon } from '@heroicons/react/24/solid';
 import { getCabin } from '@/app/_lib/data-service';
 
 export async function generateMetadata({ params }) {
-  const cabin = await getCabin(params.cabinId);
+  const cabinId = (await params).cabinId;
+  const cabin = await getCabin(cabinId);
 
   return {
     title: `Cabin ${cabin.name}`,
@@ -12,7 +13,8 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function Page({ params }) {
-  const cabin = await getCabin(params.cabinId);
+  const cabinId = (await params).cabinId;
+  const cabin = await getCabin(cabinId);
   const { id, name, maxCapacity, regularPrice, discount, image, description } =
     cabin;
 
