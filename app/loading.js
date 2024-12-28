@@ -1,5 +1,7 @@
+import Spinner from '@/app/_components/Spinner';
+
 export default function Loading() {
-  return <p>LOADING DATA...</p>;
+  return <Spinner />;
 }
 
 // Creating a loading state by adding a loading.js file to the app directory
