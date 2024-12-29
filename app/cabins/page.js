@@ -4,13 +4,16 @@ import CabinList from '@/app/_components/CabinList';
 import Spinner from '@/app/_components/Spinner';
 
 // Revalidate the data cache and full route cache
-export const revalidate = 3600; // Every hour
+// export const revalidate = 3600; // Every hour
+// Components which receive searchParams are dynamic (revalidate doesn't apply to them)
 
 export const metadata = {
   title: 'Cabins',
 };
 
-export default function Page() {
+export default async function Page({ searchParams }) {
+  const filter = (await searchParams)?.capacity ?? 'all';
+
   return (
     <div>
       <h1 className="text-4xl mb-5 text-accent-400 font-medium">
@@ -26,7 +29,7 @@ export default function Page() {
       </p>
 
       <Suspense fallback={<Spinner />}>
-        <CabinList />
+        <CabinList filter={filter} />
       </Suspense>
     </div>
   );
