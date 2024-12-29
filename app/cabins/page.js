@@ -2,6 +2,7 @@ import { Suspense } from 'react';
 
 import CabinList from '@/app/_components/CabinList';
 import Spinner from '@/app/_components/Spinner';
+import Filter from '@/app/_components/Filter';
 
 // Revalidate the data cache and full route cache
 // export const revalidate = 3600; // Every hour
@@ -28,7 +29,12 @@ export default async function Page({ searchParams }) {
         Welcome to paradise.
       </p>
 
-      <Suspense fallback={<Spinner />}>
+      <div className="flex justify-end mb-8">
+        <Filter />
+      </div>
+
+      {/* key prop is used to activate the Suspense boundary when the filter changes */}
+      <Suspense fallback={<Spinner />} key={filter}>
         <CabinList filter={filter} />
       </Suspense>
     </div>
