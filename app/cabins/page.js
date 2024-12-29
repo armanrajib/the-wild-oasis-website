@@ -3,6 +3,7 @@ import { Suspense } from 'react';
 import CabinList from '@/app/_components/CabinList';
 import Spinner from '@/app/_components/Spinner';
 import Filter from '@/app/_components/Filter';
+import ReservationReminder from '@/app/_components/ReservationReminder';
 
 // Revalidate the data cache and full route cache
 // export const revalidate = 3600; // Every hour
@@ -36,6 +37,7 @@ export default async function Page({ searchParams }) {
       {/* key prop is used to activate the Suspense boundary when the filter changes */}
       <Suspense fallback={<Spinner />} key={filter}>
         <CabinList filter={filter} />
+        <ReservationReminder />
       </Suspense>
     </div>
   );
