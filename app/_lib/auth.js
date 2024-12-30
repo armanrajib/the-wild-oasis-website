@@ -20,6 +20,11 @@ const authConfig = {
     //   },
     // }),
   ],
+  callbacks: {
+    authorized({ auth, request }) {
+      return !!auth?.user;
+    },
+  },
 };
 
 export const {
