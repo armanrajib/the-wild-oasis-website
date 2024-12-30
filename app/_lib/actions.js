@@ -1,5 +1,7 @@
 'use server';
 
+import { revalidatePath } from 'next/cache';
+
 import { auth, signIn, signOut } from '@/app/_lib/auth';
 import { updateGuest } from '@/app/_lib/data-service';
 
@@ -26,4 +28,6 @@ export async function updateGuestAction(formData) {
   const updatedData = { nationality, countryFlag, nationalID };
 
   await updateGuest(session.user.guestId, updatedData);
+
+  revalidatePath('/account');
 }
