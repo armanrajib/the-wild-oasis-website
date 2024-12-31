@@ -5,6 +5,7 @@ import { redirect } from 'next/navigation';
 
 import { auth, signIn, signOut } from '@/app/_lib/auth';
 import {
+  createBooking,
   deleteBooking,
   getBookings,
   updateBooking,
@@ -89,4 +90,42 @@ export async function updateReservationAction(formData) {
 
   // 6) Redirecting
   redirect('/account/reservations');
+}
+
+// create a new reservation
+export async function createReservationAction(bookingData, formData) {
+  // 1) Authentication
+  const session = await auth();
+
+  if (!session)
+    throw new Error('You must be signed in to create a reservation');
+
+  // 2) Validation
+  const numGuests = Number(formData.get('numGuests'));
+  const observations = formData.get('observations').slice(0, 1000);
+
+  if (!numGuests || !observations)
+    throw new Error('Please provide the number of guests and any observations');
+
+  // 3) Building the new reservation
+  const newBooking = {
+    ...bookingData,
+    numGuests,
+    observations,
+    guestId: session.user.guestId,
+    extrasPrice: 0,
+    totalPrice: bookingData.cabinPrice,
+    status: 'unconfirmed',
+    isPaid: false,
+    hasBreakfast: false,
+  };
+
+  // 4) Creating the reservation
+  await createBooking(newBooking);
+
+  // 5) Revalidation
+  revalidatePath(`/cabins/${bookingData.cabinId}`);
+
+  // 6) Redirecting
+  redirect('/cabins/thank-you');
 }
