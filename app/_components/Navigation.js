@@ -28,7 +28,7 @@ export default async function Navigation() {
           {session?.user?.image ? (
             <Link
               href="/account"
-              className="hover:text-accent-400 transition-colors flex items-center gap-2"
+              className="hover:text-accent-400 transition-colors flex items-center gap-4"
             >
               <img
                 src={session.user.image}
