@@ -2,6 +2,9 @@
 
 This is a user-facing website for booking cabins of a resort online.
 
+### Published link
+- [the_wild_oasis_website](https://the-wild-oasis-armanrajib.vercel.app/)
+
 ### **Techstack**
 
 - Next.js
